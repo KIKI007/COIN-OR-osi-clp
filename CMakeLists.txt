@@ -1,48 +1,56 @@
 #==============================================================================                                                                                                                                                                                             
 
-PROJECT(COIN_OR_OSI_CLP C CXX)
+PROJECT(COIN_OR_CLP C CXX)
 
 # CMake version control
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
 # static libraries only
 SET(BUILD_SHARED_LIBS OFF)
 
 # use PIC code for link into shared lib
 IF(UNIX)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 ENDIF(UNIX)
 
-################
+# sources directories
 INCLUDE_DIRECTORIES(.
-  ./CoinUtils/src/
-  ./Osi/src/Osi/
-  ./Clp/src/
-  ./Clp/src/OsiClp/
-  #Clp/test/
-  #Osi/src/OsiCommonTest/
-)
+                    ./ext/CoinUtils/src/
+                    ./ext/Osi/src/Osi
+                    ./Clp/src/
+                    ./Clp/src/OsiClp/
+                    ./Clp/test/
+                    ./Clp/examples/
+                   )
 
-# optimise gcc
+# optimise GNU GCC
 IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  ADD_DEFINITIONS(-O3 -Wall -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -ffast-math)
+    ADD_DEFINITIONS(-O3 -Wall -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -ffast-math)
 ENDIF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
+
+# Visual Basic options
 IF(MSVC)
-  ADD_DEFINITIONS(
-    -D_CRT_SECURE_NO_WARNINGS
-    -D_CRT_SECURE_NO_DEPRECATE
-    #-DSAMPLEDIR="..\..\..\..\Data\Sample\\"
-  )
+    ADD_DEFINITIONS(
+                    -D_CRT_SECURE_NO_WARNINGS
+                    -D_CRT_SECURE_NO_DEPRECATE
+                    #-DSAMPLEDIR="..\..\..\..\Data\Sample\\"
+                    )
 ENDIF(MSVC)
 
-ADD_SUBDIRECTORY(CoinUtils)
-SET_PROPERTY(TARGET lib_CoinUtils PROPERTY FOLDER AliceVision/3rdParty/osi_clp)
 
-ADD_SUBDIRECTORY(Osi)
-SET_PROPERTY(TARGET lib_Osi PROPERTY FOLDER AliceVision/3rdParty/osi_clp)
-
+# Add subdirectories CMakelists
+ADD_SUBDIRECTORY(ext/CoinUtils)
+ADD_SUBDIRECTORY(ext/Osi)
 ADD_SUBDIRECTORY(Clp)
-SET_PROPERTY(TARGET lib_OsiClpSolver PROPERTY FOLDER AliceVision/3rdParty/osi_clp)
-SET_PROPERTY(TARGET lib_clp PROPERTY FOLDER AliceVision/3rdParty/osi_clp)
 
+ADD_EXECUTABLE(hello Clp/examples/hello.cpp)
+TARGET_LINK_LIBRARIES(hello lib_Osi lib_Clp lib_CoinUtils)
+CONFIGURE_FILE(Clp/examples/hello.mps hello.mps COPYONLY)  # input needed for hello
+
+ADD_EXECUTABLE(modify Clp/examples/modify.cpp)
+TARGET_LINK_LIBRARIES(modify lib_Clp lib_CoinUtils)
+
+ADD_EXECUTABLE(minimum Clp/examples/minimum.cpp)
+TARGET_LINK_LIBRARIES(minimum lib_Clp lib_CoinUtils)
+CONFIGURE_FILE(Clp/examples/p0033.mps p0033.mps COPYONLY)  # input needed for minimum
