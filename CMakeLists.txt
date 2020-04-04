@@ -44,13 +44,13 @@ ADD_SUBDIRECTORY(ext/CoinUtils)
 ADD_SUBDIRECTORY(ext/Osi)
 ADD_SUBDIRECTORY(Clp)
 
-ADD_EXECUTABLE(hello Clp/examples/hello.cpp)
-TARGET_LINK_LIBRARIES(hello lib_Osi lib_Clp lib_CoinUtils)
-CONFIGURE_FILE(Clp/examples/hello.mps hello.mps COPYONLY)  # input needed for hello
-
-ADD_EXECUTABLE(modify Clp/examples/modify.cpp)
-TARGET_LINK_LIBRARIES(modify lib_Clp lib_CoinUtils)
-
-ADD_EXECUTABLE(minimum Clp/examples/minimum.cpp)
-TARGET_LINK_LIBRARIES(minimum lib_Clp lib_CoinUtils)
-CONFIGURE_FILE(Clp/examples/p0033.mps p0033.mps COPYONLY)  # input needed for minimum
+#ADD_EXECUTABLE(hello Clp/examples/hello.cpp)
+#TARGET_LINK_LIBRARIES(hello lib_Osi lib_Clp lib_CoinUtils)
+#CONFIGURE_FILE(Clp/examples/hello.mps hello.mps COPYONLY)  # input needed for hello
+#
+#ADD_EXECUTABLE(modify Clp/examples/modify.cpp)
+#TARGET_LINK_LIBRARIES(modify lib_Clp lib_CoinUtils)
+#
+#ADD_EXECUTABLE(minimum Clp/examples/minimum.cpp)
+#TARGET_LINK_LIBRARIES(minimum lib_Clp lib_CoinUtils)
+#CONFIGURE_FILE(Clp/examples/p0033.mps p0033.mps COPYONLY)  # input needed for minimum

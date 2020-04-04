@@ -253,7 +253,7 @@ CoinCopyOfArrayOrZero( const T * array , const int size)
     alternative coding if USE_MEMCPY defined*/
 #ifndef COIN_USE_RESTRICT
 template <class T> inline void
-CoinMemcpyN(register const T* from, const int size, register T* to)
+CoinMemcpyN(const T* from, const int size, T* to)
 {
 #ifndef _MSC_VER
 #ifdef USE_MEMCPY
