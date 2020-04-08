@@ -48,5 +48,7 @@ $ cmake --build . --target install
 * [User interaction](https://cmake.org/cmake/help/latest/guide/user-interaction/index.html)
 * [Writing CMakeLists](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)
 
+## Important changes - C++17 compatibility
 
+In order to make the library C++17 compatible within our own projects, functions have been modified/discarded since c86b479eb39602ce838c0e1ff6d3e01a324d7563.
 
