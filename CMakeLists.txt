@@ -44,6 +44,8 @@ ADD_SUBDIRECTORY(ext/CoinUtils)
 ADD_SUBDIRECTORY(ext/Osi)
 ADD_SUBDIRECTORY(Clp)
 
+set(CLP_LIBRARIES CoinUtils Osi Clp OsiClpSolver PARENT_SCOPE)
+
 #ADD_EXECUTABLE(hello Clp/examples/hello.cpp)
 #TARGET_LINK_LIBRARIES(hello lib_Osi lib_Clp lib_CoinUtils)
 #CONFIGURE_FILE(Clp/examples/hello.mps hello.mps COPYONLY)  # input needed for hello
